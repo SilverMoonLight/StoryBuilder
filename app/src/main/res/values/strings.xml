@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">StoryBuilder</string>
+    <string name="next_button">Next</string>
+    <string name="story">Story</string>
+</resources>
