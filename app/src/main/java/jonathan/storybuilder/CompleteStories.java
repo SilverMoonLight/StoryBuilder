@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +26,13 @@ public class CompleteStories {
         if(sCompleteStories == null) {
             sCompleteStories = new CompleteStories(context);
         }
+
         return sCompleteStories;
     }
 
     private CompleteStories(Context context) {
         mContext = context;
+
         mDatabase = new StoryBaseHelper(mContext).getWritableDatabase();
     }
 

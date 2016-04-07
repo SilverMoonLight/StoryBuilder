@@ -44,6 +44,8 @@ public class StoryFragment extends Fragment {
     CompleteStory mComplete;
     protected static boolean canMove = true;
     int num = 0;
+    int score;
+    StoryPoints mStoryPoints;
 
     public static StoryFragment newInstance(Story story, Answer answer, CompleteStory completeStory) {
         Bundle args = new Bundle();
@@ -61,15 +63,20 @@ public class StoryFragment extends Fragment {
         inflater.inflate(R.menu.story_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
-
-
+        MenuItem scoreBar = menu.findItem(R.id.score);
+        scoreBar.setTitle(scoreBar.getTitle() + " " + mStoryPoints.getPointScore());
 
     }
+
+    /* public static void updateScore()  {
+        score = score + 2;
+    } */
 
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
 
         switch (item.getItemId()) {
             case R.id.next_button:
@@ -79,6 +86,7 @@ public class StoryFragment extends Fragment {
                     mAdapter.setVisiblity(num);
                     mAdapter.onBindViewHolder(mAdapter.mStoryLines, 1);
                     updateUI();
+                    getActivity().invalidateOptionsMenu();
                 }
                 int x = num -1;
                 if (x < (mInteraction.size() -1)) {
@@ -107,6 +115,7 @@ public class StoryFragment extends Fragment {
         mStory = getArguments().getParcelable(STORY);
         mAnswer =  getArguments().getParcelable(ANSWER);
         mComplete = getArguments().getParcelable(COMPLETE);
+        mStoryPoints = StoryPoints.get(getContext());
         setChoices();
         setStoryLines();
         setComplete();
@@ -275,8 +284,13 @@ public class StoryFragment extends Fragment {
 
                     if (holder.getAdapterPosition() < number) {
                         holder.mRow.setVisibility(View.VISIBLE);
+                        if(holder.getAdapterPosition() < number -1) {
+                            holder.itemView.setClickable(false);
+                        }
 
-
+                        if(holder.getAdapterPosition() == 5) {
+                            holder.itemView.setClickable(true);
+                        }
                     }
                 }
             } else {
@@ -336,7 +350,7 @@ public class StoryFragment extends Fragment {
             if(getAdapterPosition() < num) {
                 if(getAdapterPosition() == (mStoryLines.size() - 1)) {
                     mFinalDialog = new FinalDialog();
-                    mFinalDialog.newInstance(mRow.getText().toString(), mCompleteStory);
+                    mFinalDialog.newInstance(mRow.getText().toString(), mCompleteStory, score);
                     mFinalDialog.show(fragmentManager, SHOW);
                 } else if (mType.equals("multi")) {
                     choices.show(fragmentManager, SHOW);

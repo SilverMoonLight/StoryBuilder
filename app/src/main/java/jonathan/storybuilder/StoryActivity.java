@@ -28,6 +28,7 @@ public class StoryActivity extends AppCompatActivity {
     String mTitle;
     List<CompleteStory> mCompleteStoryList;
 
+
     private ViewPager mViewPager;
 
     public static Intent newIntent(Context packageContext, String title, AnswerList mAnswers, Stories mStoryList) {
@@ -36,7 +37,6 @@ public class StoryActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelable(MainMenuAdapter.ANSWERS, mAnswers);
         bundle.putParcelable(MainMenuAdapter.STORIES, mStoryList);
-
         intent.putExtras(bundle);
         intent.putExtra(TITLE, title);
         return intent;
@@ -49,7 +49,6 @@ public class StoryActivity extends AppCompatActivity {
 
         Bundle b = this.getIntent().getExtras();
         mTitle = this.getIntent().getStringExtra(TITLE);
-
         if(b != null) {
             mStories = b.getParcelable(MainMenuAdapter.STORIES);
             mAnswerList = b.getParcelable(MainMenuAdapter.ANSWERS);

@@ -2,11 +2,14 @@ package jonathan.storybuilder;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 /**
@@ -19,11 +22,14 @@ public class MultiChoiceDialog extends DialogFragment {
     private static final String CHOICE_3 = "c3";
     private static final String CHOICE_CORRECT = "c4";
     private static final String ROW = "row";
-    Button choice1;
-    Button choice2;
-    Button choice3;
-    TextView mTextView;
-
+    RadioButton choice1;
+    RadioButton choice2;
+    RadioButton choice3;
+    RadioGroup choices;
+    View view;
+    private int score;
+    StoryPoints mStoryPoints;
+    static int chances = 0;
 
 
 
@@ -48,53 +54,68 @@ public class MultiChoiceDialog extends DialogFragment {
         String row = (String) getArguments().getSerializable(ROW);
         final String correct = (String) getArguments().getSerializable(CHOICE_CORRECT);
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_choice, null);
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_choice, null);
 
+        choices = (RadioGroup) view.findViewById(R.id.radioChoices);
+
+        choice1 = (RadioButton) view.findViewById(R.id.radioChoice1);
+        choice2 = (RadioButton) view.findViewById(R.id.radioChoice2);
+        choice3 = (RadioButton) view.findViewById(R.id.radioChoice3);
+        choice1.setText(c1);
+        choice2.setText(c2);
+        choice3.setText(c3);
        // mTextView = (TextView) view.findViewById(R.id.storyText);
        // mTextView.setText(row);
+        mStoryPoints = StoryPoints.get(getContext());
+        score = mStoryPoints.getPointScore();
 
-        choice1 = (Button) view.findViewById(R.id.choice1);
-        choice1.setText(c1);
-        choice1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (choice1.getText().toString().equals(correct)) {
-                    correctDialog();
-                    StoryFragment.get();
-                } else {
-                    incorrectDialog();
-                }
-            }
-        });
 
-        choice2 = (Button) view.findViewById(R.id.choice2);
-        choice2.setText(c2);
-        choice2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (choice2.getText().toString().equals(correct)) {
-                    correctDialog();
-                    StoryFragment.get();
-                } else {
-                    incorrectDialog();
-                }
-            }
-        });
-        choice3 = (Button) view.findViewById(R.id.choice3);
-        choice3.setText(c3);
-        choice3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (choice3.getText().toString().equals(correct)) {
-                    correctDialog();
-                    StoryFragment.get();
-                } else  {
-                    incorrectDialog();
-                }
-            }
-        });
+        return new AlertDialog.Builder(getActivity()).setView(view).setMessage(row).setPositiveButton("Submit",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-        return new AlertDialog.Builder(getActivity()).setView(view).setMessage(row).setPositiveButton(android.R.string.ok, null).create();
+                        int selectedId = choices.getCheckedRadioButtonId();
+
+                        switch (selectedId) {
+                            case R.id.radioChoice1:
+                                if (choice1.getText().toString().equals(correct)) {
+                                    correctDialog();
+                                    StoryFragment.get();
+                                    updateScore();
+                                    chances = 0;
+                                } else {
+                                    incorrectDialog();
+                                    chances++;
+                                }
+                                break;
+                            case R.id.radioChoice2:
+                                if (choice2.getText().toString().equals(correct)) {
+                                    correctDialog();
+                                    StoryFragment.get();
+                                    updateScore();
+                                    chances = 0;
+                                } else {
+                                    incorrectDialog();
+                                    chances++;
+                                }
+                                break;
+                            case R.id.radioChoice3:
+                                if (choice3.getText().toString().equals(correct)) {
+                                    correctDialog();
+                                    StoryFragment.get();
+                                    updateScore();
+                                    chances = 0;
+                                } else {
+                                    incorrectDialog();
+                                    chances++;
+                                }
+                                break;
+
+                        }
+
+                    }
+                }).create();
     }
 
     public void correctDialog() {
@@ -104,7 +125,19 @@ public class MultiChoiceDialog extends DialogFragment {
     }
     public void incorrectDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Incorrect").setPositiveButton("Ok", null);
+        builder.setTitle("Incorrect. Please try again").setPositiveButton("Ok", null);
         builder.show();
+    }
+
+    public void updateScore() {
+        if(chances == 0) {
+            score += 2;
+            mStoryPoints.updatePoints(score);
+        } else if (chances == 1) {
+            score += 1;
+            mStoryPoints.updatePoints(score);
+        } else {
+
+        }
     }
 }

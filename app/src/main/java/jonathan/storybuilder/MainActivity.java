@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     CompleteStories mCompleteStories;
     List<CompleteStory> mCompleteStoryList;
+    StoryPoints storyPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         mCompleteStoryList = mCompleteStories.getCompleteStories();
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         getConnection();
+
+        storyPoints = StoryPoints.get(this);
+
+
 
     }
 
@@ -57,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+
+
+        MenuItem scoreBar = menu.findItem(R.id.scoreMenu);
+        scoreBar.setTitle("Score:" + " " + storyPoints.getPointScore());
         return true;
     }
 
@@ -69,8 +78,10 @@ public class MainActivity extends AppCompatActivity {
                     CompleteStory mCompleteStory = mCompleteStoryList.get(i);
                     mCompleteStory.setComplete("no");
                     mCompleteStories.updateStory(mCompleteStory);
-                    Toast.makeText(this, mStories.getStorySize() + "", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, mStories.getStorySize() + "", Toast.LENGTH_LONG).show();
                 }
+                storyPoints.savePoints(0);
+                this.invalidateOptionsMenu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

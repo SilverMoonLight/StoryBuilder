@@ -10,6 +10,8 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 /**
@@ -18,31 +20,38 @@ import android.widget.TextView;
 public class FinalDialog extends DialogFragment {
 
     protected static String mFinalQuestion;
-    EditText mAnswer;
     TextView mQuestionLabel;
     static CompleteStory mCompleteStory;
+    RadioGroup mRadioGroup;
+    RadioButton mSelected;
+    static int points;
 
-    public static void newInstance(String finalQuestion, CompleteStory completeStory) {
+    public static void newInstance(String finalQuestion, CompleteStory completeStory, int score) {
         mFinalQuestion = finalQuestion;
         mCompleteStory = completeStory;
+        points = score;
     }
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.final_dialog, null);
+        final View view = LayoutInflater.from(getActivity()).inflate(R.layout.final_dialog, null);
 
         mQuestionLabel = (TextView) view.findViewById(R.id.finalQuestionLabel);
         mQuestionLabel.setText(mFinalQuestion);
-        mAnswer = (EditText) view.findViewById(R.id.userFinalAnswer);
+
+        mRadioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
+
+
 
 
         return new AlertDialog.Builder(getActivity()).setView(view).setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String reponse = mAnswer.getText().toString().trim().toLowerCase();
-                if(reponse.equals("no") || reponse.equals("yes")) {
-
+                int selectedId = mRadioGroup.getCheckedRadioButtonId();
+                if (selectedId == R.id.radioYes || selectedId == R.id.radioNo) {
+                    mSelected = (RadioButton) view.findViewById(selectedId);
+                    String reponse = mSelected.getText().toString();
                     mCompleteStory.setResponse(reponse);
                     mCompleteStory.setComplete("yes");
                     CompleteStories stories = CompleteStories.get(getContext());
@@ -50,13 +59,15 @@ public class FinalDialog extends DialogFragment {
                     Intent intent = new Intent();
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.putExtra("score", points);
                     intent.setClass(getActivity(), MainActivity.class);
                     startActivity(intent);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("Error").setMessage("Please enter yes or no").setPositiveButton("Ok", null);
+                    builder.setTitle("Incorrect. You must select a choice").setPositiveButton("Ok", null);
                     builder.show();
                 }
+
             }
         }).create();
     }

@@ -28,7 +28,6 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.StoryH
         mContext = context;
         mAnswerList = answerList;
 
-
     }
 
     @Override

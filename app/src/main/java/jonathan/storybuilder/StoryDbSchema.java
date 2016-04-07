@@ -19,4 +19,14 @@ public class StoryDbSchema {
             public static final String COMPLETE = "complete";
         }
     }
+
+    public static final class PointsTable {
+        public static final String NAME = "score";
+
+        public static final class Cols {
+            public static final String POINTS = "points";
+        }
+    }
+
+
 }

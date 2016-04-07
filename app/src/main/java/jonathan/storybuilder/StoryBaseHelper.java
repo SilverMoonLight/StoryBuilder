@@ -3,6 +3,7 @@ package jonathan.storybuilder;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import jonathan.storybuilder.StoryDbSchema.StoryTable;
 
@@ -30,6 +31,7 @@ public class StoryBaseHelper extends SQLiteOpenHelper {
                         StoryTable.Cols.LINE5 + "," +
                         StoryTable.Cols.FINAL_LINE  + "," +
                         StoryTable.Cols.COMPLETE + ")" );
+
     }
 
     @Override
