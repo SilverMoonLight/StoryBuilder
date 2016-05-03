@@ -14,4 +14,8 @@
         android:icon="@mipmap/ic_reset"
         app:showAsAction="always"></item>
 
+    <item
+        android:id="@+id/storyCredit"
+        android:title="Credits Section"/>
+
 </menu>

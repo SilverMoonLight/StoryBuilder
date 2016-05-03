@@ -2,6 +2,7 @@ package jonathan.storybuilder;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         MenuItem scoreBar = menu.findItem(R.id.scoreMenu);
+        if(storyPoints.getPointScore() == 0) {
+            storyPoints.savePoints(0);
+        }
         scoreBar.setTitle("Score:" + " " + storyPoints.getPointScore());
         return true;
     }
@@ -83,10 +87,15 @@ public class MainActivity extends AppCompatActivity {
                 storyPoints.savePoints(0);
                 this.invalidateOptionsMenu();
                 return true;
+            case R.id.storyCredit:
+                Intent intent = new Intent(this, CreditsActivity.class);
+                startActivity(intent);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
 
         }
+        return true;
     }
 
     private void getConnection() {
@@ -177,6 +186,10 @@ public class MainActivity extends AppCompatActivity {
             story.setLine3(jsonObject.getString("line3"));
             story.setLine4(jsonObject.getString("line4"));
             story.setLine5(jsonObject.getString("line5"));
+            story.setLine6(jsonObject.getString("line6"));
+            story.setLine7(jsonObject.getString("line7"));
+            story.setLine8(jsonObject.getString("line8"));
+            story.setLine9(jsonObject.getString("line9"));
             story.setFinalLine(jsonObject.getString("finalLine"));
             stories.addStory(story);
 
@@ -203,6 +216,10 @@ public class MainActivity extends AppCompatActivity {
             completeStory.setLine3(jsonObject.getString("line3"));
             completeStory.setLine4(jsonObject.getString("line4"));
             completeStory.setLine5(jsonObject.getString("line5"));
+            completeStory.setLine6(jsonObject.getString("line6"));
+            completeStory.setLine7(jsonObject.getString("line7"));
+            completeStory.setLine8(jsonObject.getString("line8"));
+            completeStory.setLine9(jsonObject.getString("line9"));
             completeStory.setFinalLine(jsonObject.getString("finalLine"));
             completeStory.setResponse("no");
             completeStory.setComplete("no");
@@ -222,6 +239,10 @@ public class MainActivity extends AppCompatActivity {
         JSONArray line3 = info.getJSONArray("line3");
         JSONArray line4 = info.getJSONArray("line4");
         JSONArray line5 = info.getJSONArray("line5");
+        JSONArray line6 = info.getJSONArray("line6");
+        JSONArray line7 = info.getJSONArray("line7");
+        JSONArray line8 = info.getJSONArray("line8");
+        JSONArray line9 = info.getJSONArray("line9");
         AnswerList answerList = new AnswerList();
 
         for (int i = 0; i < line1.length(); i++) {
@@ -230,6 +251,11 @@ public class MainActivity extends AppCompatActivity {
             JSONObject jsonObject3 = line3.getJSONObject(i);
             JSONObject jsonObject4 = line4.getJSONObject(i);
             JSONObject jsonObject5 = line5.getJSONObject(i);
+            JSONObject jsonObject6 = line6.getJSONObject(i);
+            JSONObject jsonObject7 = line7.getJSONObject(i);
+            JSONObject jsonObject8 = line8.getJSONObject(i);
+            JSONObject jsonObject9 = line9.getJSONObject(i);
+
 
             Answer answer = new Answer();
 
@@ -262,6 +288,30 @@ public class MainActivity extends AppCompatActivity {
             answer.setAnswer5Choice3(jsonObject5.getString("choice3"));
             answer.setAnswer5Correct(jsonObject5.getString("correct"));
             answer.setAnswer5Interaction(jsonObject5.getString("interaction"));
+
+            answer.setAnswer6Choice1(jsonObject6.getString("choice1"));
+            answer.setAnswer6Choice2(jsonObject6.getString("choice2"));
+            answer.setAnswer6Choice3(jsonObject6.getString("choice3"));
+            answer.setAnswer6Correct(jsonObject6.getString("correct"));
+            answer.setAnswer6Interaction(jsonObject6.getString("interaction"));
+
+            answer.setAnswer7Choice1(jsonObject7.getString("choice1"));
+            answer.setAnswer7Choice2(jsonObject7.getString("choice2"));
+            answer.setAnswer7Choice3(jsonObject7.getString("choice3"));
+            answer.setAnswer7Correct(jsonObject7.getString("correct"));
+            answer.setAnswer7Interaction(jsonObject7.getString("interaction"));
+
+            answer.setAnswer8Choice1(jsonObject8.getString("choice1"));
+            answer.setAnswer8Choice2(jsonObject8.getString("choice2"));
+            answer.setAnswer8Choice3(jsonObject8.getString("choice3"));
+            answer.setAnswer8Correct(jsonObject8.getString("correct"));
+            answer.setAnswer8Interaction(jsonObject8.getString("interaction"));
+
+            answer.setAnswer9Choice1(jsonObject9.getString("choice1"));
+            answer.setAnswer9Choice2(jsonObject9.getString("choice2"));
+            answer.setAnswer9Choice3(jsonObject9.getString("choice3"));
+            answer.setAnswer9Correct(jsonObject9.getString("correct"));
+            answer.setAnswer9Interaction(jsonObject9.getString("interaction"));
 
             answerList.addAnswers(answer);
 

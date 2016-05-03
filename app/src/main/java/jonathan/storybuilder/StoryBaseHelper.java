@@ -29,6 +29,10 @@ public class StoryBaseHelper extends SQLiteOpenHelper {
                         StoryTable.Cols.LINE3 + "," +
                         StoryTable.Cols.LINE4 + "," +
                         StoryTable.Cols.LINE5 + "," +
+                        StoryTable.Cols.LINE6 + "," +
+                        StoryTable.Cols.LINE7 + "," +
+                        StoryTable.Cols.LINE8 + "," +
+                        StoryTable.Cols.LINE9 + "," +
                         StoryTable.Cols.FINAL_LINE  + "," +
                         StoryTable.Cols.COMPLETE + ")" );
 

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +23,14 @@ public class MultiChoiceDialog extends DialogFragment {
     private static final String CHOICE_3 = "c3";
     private static final String CHOICE_CORRECT = "c4";
     private static final String ROW = "row";
+    private static final String ANSWERED = "answered";
     RadioButton choice1;
     RadioButton choice2;
     RadioButton choice3;
     RadioGroup choices;
     View view;
     private int score;
+    static boolean notAnswered = true;
     StoryPoints mStoryPoints;
     static int chances = 0;
 
@@ -67,7 +70,7 @@ public class MultiChoiceDialog extends DialogFragment {
        // mTextView = (TextView) view.findViewById(R.id.storyText);
        // mTextView.setText(row);
         mStoryPoints = StoryPoints.get(getContext());
-        score = mStoryPoints.getPointScore();
+        score = mStoryPoints.getPoints();
 
 
         return new AlertDialog.Builder(getActivity()).setView(view).setMessage(row).setPositiveButton("Submit",
@@ -80,9 +83,12 @@ public class MultiChoiceDialog extends DialogFragment {
                         switch (selectedId) {
                             case R.id.radioChoice1:
                                 if (choice1.getText().toString().equals(correct)) {
+
                                     correctDialog();
                                     StoryFragment.get();
                                     updateScore();
+                                    notAnswered = false;
+
                                     chances = 0;
                                 } else {
                                     incorrectDialog();
@@ -94,6 +100,8 @@ public class MultiChoiceDialog extends DialogFragment {
                                     correctDialog();
                                     StoryFragment.get();
                                     updateScore();
+                                    notAnswered = false;
+
                                     chances = 0;
                                 } else {
                                     incorrectDialog();
@@ -102,9 +110,12 @@ public class MultiChoiceDialog extends DialogFragment {
                                 break;
                             case R.id.radioChoice3:
                                 if (choice3.getText().toString().equals(correct)) {
+
                                     correctDialog();
                                     StoryFragment.get();
                                     updateScore();
+                                    notAnswered = false;
+
                                     chances = 0;
                                 } else {
                                     incorrectDialog();
@@ -115,7 +126,7 @@ public class MultiChoiceDialog extends DialogFragment {
                         }
 
                     }
-                }).create();
+                }).setNegativeButton("Cancel", null).create();
     }
 
     public void correctDialog() {
@@ -130,14 +141,22 @@ public class MultiChoiceDialog extends DialogFragment {
     }
 
     public void updateScore() {
-        if(chances == 0) {
-            score += 2;
-            mStoryPoints.updatePoints(score);
-        } else if (chances == 1) {
-            score += 1;
-            mStoryPoints.updatePoints(score);
-        } else {
+        Log.d("BOOL", notAnswered + "");
+        if (notAnswered) {
+            if (chances == 0) {
+                score += 2;
+                mStoryPoints.setPoints(score);
+            } else if (chances == 1) {
+                score += 1;
+                mStoryPoints.setPoints(score);
+            } else {
 
+            }
         }
+
+    }
+
+    public static void setNotAnswered() {
+        notAnswered = true;
     }
 }

@@ -22,6 +22,10 @@ public class StoryCursorWrapper extends CursorWrapper{
         String line3 = getString(getColumnIndex(StoryTable.Cols.LINE3));
         String line4 = getString(getColumnIndex(StoryTable.Cols.LINE4));
         String line5 = getString(getColumnIndex(StoryTable.Cols.LINE5));
+        String line6 = getString(getColumnIndex(StoryTable.Cols.LINE6));
+        String line7 = getString(getColumnIndex(StoryTable.Cols.LINE7));
+        String line8 = getString(getColumnIndex(StoryTable.Cols.LINE8));
+        String line9 = getString(getColumnIndex(StoryTable.Cols.LINE9));
         String finalLine = getString(getColumnIndex(StoryTable.Cols.FINAL_LINE));
         String complete = getString(getColumnIndex(StoryTable.Cols.COMPLETE));
 
@@ -33,6 +37,10 @@ public class StoryCursorWrapper extends CursorWrapper{
         story.setLine3(line3);
         story.setLine4(line4);
         story.setLine5(line5);
+        story.setLine6(line6);
+        story.setLine7(line7);
+        story.setLine8(line8);
+        story.setLine9(line9);
         story.setFinalLine(finalLine);
         story.setComplete(complete);
         return story;

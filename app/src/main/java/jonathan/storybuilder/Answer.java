@@ -33,6 +33,26 @@ public class Answer implements Parcelable {
     private String mAnswer5Choice3;
     private String mAnswer5Correct;
     private String mAnswer5Interaction;
+    private String mAnswer6Choice1;
+    private String mAnswer6Choice2;
+    private String mAnswer6Choice3;
+    private String mAnswer6Correct;
+    private String mAnswer6Interaction;
+    private String mAnswer7Choice1;
+    private String mAnswer7Choice2;
+    private String mAnswer7Choice3;
+    private String mAnswer7Correct;
+    private String mAnswer7Interaction;
+    private String mAnswer8Choice1;
+    private String mAnswer8Choice2;
+    private String mAnswer8Choice3;
+    private String mAnswer8Correct;
+    private String mAnswer8Interaction;
+    private String mAnswer9Choice1;
+    private String mAnswer9Choice2;
+    private String mAnswer9Choice3;
+    private String mAnswer9Correct;
+    private String mAnswer9Interaction;
 
     public Answer() {
 
@@ -238,6 +258,166 @@ public class Answer implements Parcelable {
         mAnswer5Interaction = answer5Interaction;
     }
 
+    public String getAnswer6Choice1() {
+        return mAnswer6Choice1;
+    }
+
+    public void setAnswer6Choice1(String answer6Choice1) {
+        mAnswer6Choice1 = answer6Choice1;
+    }
+
+    public String getAnswer6Choice2() {
+        return mAnswer6Choice2;
+    }
+
+    public void setAnswer6Choice2(String answer6Choice2) {
+        mAnswer6Choice2 = answer6Choice2;
+    }
+
+    public String getAnswer6Choice3() {
+        return mAnswer6Choice3;
+    }
+
+    public void setAnswer6Choice3(String answer6Choice3) {
+        mAnswer6Choice3 = answer6Choice3;
+    }
+
+    public String getAnswer6Correct() {
+        return mAnswer6Correct;
+    }
+
+    public void setAnswer6Correct(String answer6Correct) {
+        mAnswer6Correct = answer6Correct;
+    }
+
+    public String getAnswer6Interaction() {
+        return mAnswer6Interaction;
+    }
+
+    public void setAnswer6Interaction(String answer6Interaction) {
+        mAnswer6Interaction = answer6Interaction;
+    }
+
+    public String getAnswer7Choice1() {
+        return mAnswer7Choice1;
+    }
+
+    public void setAnswer7Choice1(String answer7Choice1) {
+        mAnswer7Choice1 = answer7Choice1;
+    }
+
+    public String getAnswer7Choice2() {
+        return mAnswer7Choice2;
+    }
+
+    public void setAnswer7Choice2(String answer7Choice2) {
+        mAnswer7Choice2 = answer7Choice2;
+    }
+
+    public String getAnswer7Choice3() {
+        return mAnswer7Choice3;
+    }
+
+    public void setAnswer7Choice3(String answer7Choice3) {
+        mAnswer7Choice3 = answer7Choice3;
+    }
+
+    public String getAnswer7Correct() {
+        return mAnswer7Correct;
+    }
+
+    public void setAnswer7Correct(String answer7Correct) {
+        mAnswer7Correct = answer7Correct;
+    }
+
+    public String getAnswer7Interaction() {
+        return mAnswer7Interaction;
+    }
+
+    public void setAnswer7Interaction(String answer7Interaction) {
+        mAnswer7Interaction = answer7Interaction;
+    }
+
+    public String getAnswer8Choice1() {
+        return mAnswer8Choice1;
+    }
+
+    public void setAnswer8Choice1(String answer8Choice1) {
+        mAnswer8Choice1 = answer8Choice1;
+    }
+
+    public String getAnswer8Choice2() {
+        return mAnswer8Choice2;
+    }
+
+    public void setAnswer8Choice2(String answer8Choice2) {
+        mAnswer8Choice2 = answer8Choice2;
+    }
+
+    public String getAnswer8Choice3() {
+        return mAnswer8Choice3;
+    }
+
+    public void setAnswer8Choice3(String answer8Choice3) {
+        mAnswer8Choice3 = answer8Choice3;
+    }
+
+    public String getAnswer8Correct() {
+        return mAnswer8Correct;
+    }
+
+    public void setAnswer8Correct(String answer8Correct) {
+        mAnswer8Correct = answer8Correct;
+    }
+
+    public String getAnswer8Interaction() {
+        return mAnswer8Interaction;
+    }
+
+    public void setAnswer8Interaction(String answer8Interaction) {
+        mAnswer8Interaction = answer8Interaction;
+    }
+
+    public String getAnswer9Choice1() {
+        return mAnswer9Choice1;
+    }
+
+    public void setAnswer9Choice1(String answer9Choice1) {
+        mAnswer9Choice1 = answer9Choice1;
+    }
+
+    public String getAnswer9Choice2() {
+        return mAnswer9Choice2;
+    }
+
+    public void setAnswer9Choice2(String answer9Choice2) {
+        mAnswer9Choice2 = answer9Choice2;
+    }
+
+    public String getAnswer9Choice3() {
+        return mAnswer9Choice3;
+    }
+
+    public void setAnswer9Choice3(String answer9Choice3) {
+        mAnswer9Choice3 = answer9Choice3;
+    }
+
+    public String getAnswer9Correct() {
+        return mAnswer9Correct;
+    }
+
+    public void setAnswer9Correct(String answer9Correct) {
+        mAnswer9Correct = answer9Correct;
+    }
+
+    public String getAnswer9Interaction() {
+        return mAnswer9Interaction;
+    }
+
+    public void setAnswer9Interaction(String answer9Interaction) {
+        mAnswer9Interaction = answer9Interaction;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -271,6 +451,26 @@ public class Answer implements Parcelable {
         dest.writeString(mAnswer5Choice3);
         dest.writeString(mAnswer5Correct);
         dest.writeString(mAnswer5Interaction);
+        dest.writeString(mAnswer6Choice1);
+        dest.writeString(mAnswer6Choice2);
+        dest.writeString(mAnswer6Choice3);
+        dest.writeString(mAnswer6Correct);
+        dest.writeString(mAnswer6Interaction);
+        dest.writeString(mAnswer7Choice1);
+        dest.writeString(mAnswer7Choice2);
+        dest.writeString(mAnswer7Choice3);
+        dest.writeString(mAnswer7Correct);
+        dest.writeString(mAnswer7Interaction);
+        dest.writeString(mAnswer8Choice1);
+        dest.writeString(mAnswer8Choice2);
+        dest.writeString(mAnswer8Choice3);
+        dest.writeString(mAnswer8Correct);
+        dest.writeString(mAnswer8Interaction);
+        dest.writeString(mAnswer9Choice1);
+        dest.writeString(mAnswer9Choice2);
+        dest.writeString(mAnswer9Choice3);
+        dest.writeString(mAnswer9Correct);
+        dest.writeString(mAnswer9Interaction);
 
     }
 
@@ -300,6 +500,26 @@ public class Answer implements Parcelable {
         mAnswer5Choice3 = in.readString();
         mAnswer5Correct = in.readString();
         mAnswer5Interaction = in.readString();
+        mAnswer6Choice1 = in.readString();
+        mAnswer6Choice2 = in.readString();
+        mAnswer6Choice3 = in.readString();
+        mAnswer6Correct = in.readString();
+        mAnswer6Interaction = in.readString();
+        mAnswer7Choice1 = in.readString();
+        mAnswer7Choice2 = in.readString();
+        mAnswer7Choice3 = in.readString();
+        mAnswer7Correct = in.readString();
+        mAnswer7Interaction = in.readString();
+        mAnswer8Choice1 = in.readString();
+        mAnswer8Choice2 = in.readString();
+        mAnswer8Choice3 = in.readString();
+        mAnswer8Correct = in.readString();
+        mAnswer8Interaction = in.readString();
+        mAnswer9Choice1 = in.readString();
+        mAnswer9Choice2 = in.readString();
+        mAnswer9Choice3 = in.readString();
+        mAnswer9Correct = in.readString();
+        mAnswer9Interaction = in.readString();
 
     }
 

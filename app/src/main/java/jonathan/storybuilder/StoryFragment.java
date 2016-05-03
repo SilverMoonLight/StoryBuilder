@@ -29,6 +29,7 @@ public class StoryFragment extends Fragment {
     public static final String ANSWER = "answer";
     public static final String COMPLETE = "complete";
     public static final String SHOW = "show";
+    public static final String NUM_PLACE = "numPlace";
     RecyclerView mRecyclerView;
     ArrayList<String> mStoryLines;
     ArrayList<String> mChoice1;
@@ -43,6 +44,7 @@ public class StoryFragment extends Fragment {
     StoryAdapter mAdapter;
     CompleteStory mComplete;
     protected static boolean canMove = true;
+
     int num = 0;
     int score;
     StoryPoints mStoryPoints;
@@ -64,13 +66,30 @@ public class StoryFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
         MenuItem scoreBar = menu.findItem(R.id.score);
-        scoreBar.setTitle(scoreBar.getTitle() + " " + mStoryPoints.getPointScore());
+        scoreBar.setTitle(scoreBar.getTitle() + " " + mStoryPoints.getPoints());
 
     }
 
     /* public static void updateScore()  {
         score = score + 2;
     } */
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            num = savedInstanceState.getInt(NUM_PLACE, 0);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(NUM_PLACE, num);
+    }
 
 
 
@@ -83,14 +102,20 @@ public class StoryFragment extends Fragment {
 
                 if(canMove) {
                     num++;
+                    MultiChoiceDialog.setNotAnswered();
+                    FillInDialog.setNotAnswered();
                     mAdapter.setVisiblity(num);
                     mAdapter.onBindViewHolder(mAdapter.mStoryLines, 1);
                     updateUI();
                     getActivity().invalidateOptionsMenu();
+                } else {
+                    mAdapter.setVisiblity(num);
+                    mAdapter.onBindViewHolder(mAdapter.mStoryLines, 1);
+                    updateUI();
                 }
                 int x = num -1;
                 if (x < (mInteraction.size() -1)) {
-                    if (mInteraction.get(x).equals("multi")) {
+                    if (mInteraction.get(x).equals("multi") || mInteraction.get(x).equals("fill")) {
                         canMove = false;
                     }
                 }
@@ -131,10 +156,19 @@ public class StoryFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("HERE", "now here");
+    }
+
     public static void get() {
 
         canMove = true;
+
+
     }
+
 
     @Nullable
     @Override
@@ -174,30 +208,50 @@ public class StoryFragment extends Fragment {
         mChoice1.add(mAnswer.getAnswer3Choice1());
         mChoice1.add(mAnswer.getAnswer4Choice1());
         mChoice1.add(mAnswer.getAnswer5Choice1());
+        mChoice1.add(mAnswer.getAnswer6Choice1());
+        mChoice1.add(mAnswer.getAnswer7Choice1());
+        mChoice1.add(mAnswer.getAnswer8Choice1());
+        mChoice1.add(mAnswer.getAnswer9Choice1());
 
         mChoice2.add(mAnswer.getAnswer1Choice2());
         mChoice2.add(mAnswer.getAnswer2Choice2());
         mChoice2.add(mAnswer.getAnswer3Choice2());
         mChoice2.add(mAnswer.getAnswer4Choice2());
         mChoice2.add(mAnswer.getAnswer5Choice2());
+        mChoice2.add(mAnswer.getAnswer6Choice2());
+        mChoice2.add(mAnswer.getAnswer7Choice2());
+        mChoice2.add(mAnswer.getAnswer8Choice2());
+        mChoice2.add(mAnswer.getAnswer9Choice2());
 
         mChoice3.add(mAnswer.getAnswer1Choice3());
         mChoice3.add(mAnswer.getAnswer2Choice3());
         mChoice3.add(mAnswer.getAnswer3Choice3());
         mChoice3.add(mAnswer.getAnswer4Choice3());
         mChoice3.add(mAnswer.getAnswer5Choice3());
+        mChoice3.add(mAnswer.getAnswer6Choice3());
+        mChoice3.add(mAnswer.getAnswer7Choice3());
+        mChoice3.add(mAnswer.getAnswer8Choice3());
+        mChoice3.add(mAnswer.getAnswer9Choice3());
 
         mCorrect.add(mAnswer.getAnswer1Correct());
         mCorrect.add(mAnswer.getAnswer2Correct());
         mCorrect.add(mAnswer.getAnswer3Correct());
         mCorrect.add(mAnswer.getAnswer4Correct());
         mCorrect.add(mAnswer.getAnswer5Correct());
+        mCorrect.add(mAnswer.getAnswer6Correct());
+        mCorrect.add(mAnswer.getAnswer7Correct());
+        mCorrect.add(mAnswer.getAnswer8Correct());
+        mCorrect.add(mAnswer.getAnswer9Correct());
 
         mInteraction.add(mAnswer.getAnswer1Interaction());
         mInteraction.add(mAnswer.getAnswer2Interaction());
         mInteraction.add(mAnswer.getAnswer3Interaction());
         mInteraction.add(mAnswer.getAnswer4Interaction());
         mInteraction.add(mAnswer.getAnswer5Interaction());
+        mInteraction.add(mAnswer.getAnswer6Interaction());
+        mInteraction.add(mAnswer.getAnswer7Interaction());
+        mInteraction.add(mAnswer.getAnswer8Interaction());
+        mInteraction.add(mAnswer.getAnswer9Interaction());
 
 
     }
@@ -212,6 +266,18 @@ public class StoryFragment extends Fragment {
         if (mComplete.getLine5() != null) {
             mCompleteLines.add(mComplete.getLine5());
         }
+        if (mComplete.getLine6() != null) {
+            mCompleteLines.add(mComplete.getLine6());
+        }
+        if (mComplete.getLine7() != null) {
+            mCompleteLines.add(mComplete.getLine7());
+        }
+        if (mComplete.getLine8() != null) {
+            mCompleteLines.add(mComplete.getLine8());
+        }
+        if (mComplete.getLine9() != null) {
+            mCompleteLines.add(mComplete.getLine9());
+        }
         mCompleteLines.add(mComplete.getFinalLine());
     }
 
@@ -224,6 +290,18 @@ public class StoryFragment extends Fragment {
         mStoryLines.add(mStory.getLine4());
         if(mStory.getLine5() != null) {
             mStoryLines.add(mStory.getLine5());
+        }
+        if(mStory.getLine6() != null) {
+            mStoryLines.add(mStory.getLine6());
+        }
+        if(mStory.getLine7() != null) {
+            mStoryLines.add(mStory.getLine7());
+        }
+        if(mStory.getLine8() != null) {
+            mStoryLines.add(mStory.getLine8());
+        }
+        if(mStory.getLine9() != null) {
+            mStoryLines.add(mStory.getLine9());
         }
         mStoryLines.add(mStory.getFinalLine());
     }
@@ -240,6 +318,7 @@ public class StoryFragment extends Fragment {
         CompleteStory mCompleteStory;
         ArrayList<String> mCompleteList;
         int number = 0;
+        FinalDialog mFinalDialog;
         public StoryAdapter(ArrayList<String> lines, ArrayList<String> choice1, ArrayList<String> choice2,
                             ArrayList<String> choice3, ArrayList<String> correct, ArrayList<String> interaction, CompleteStory completeStory, ArrayList<String> comepeltelines) {
             mStoryPart = lines;
@@ -266,6 +345,8 @@ public class StoryFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(StoryLines holder, int position) {
+
+
             if(mCompleteStory.getComplete().equals("no")) {
                 holder.startStory(mStoryPart.get(position));
 
@@ -275,7 +356,9 @@ public class StoryFragment extends Fragment {
                     if (holder.mType.equals("multi")) {
                         holder.setChoices(mCho1.get(position), mCho2.get(position),
                                 mCho3.get(position), mCorr.get(position), mStoryPart.get(position));
-                    } else if (holder.mType.equals("none")) {
+                    } else if (holder.mType.equals("fill")) {
+                        holder.setFillInDialog(mCorr.get(position), mStoryPart.get(position));
+                    } else {
 
                     }
                 }
@@ -283,14 +366,30 @@ public class StoryFragment extends Fragment {
                 if (number > 0) {
 
                     if (holder.getAdapterPosition() < number) {
+                        FragmentManager fragmentManager = getFragmentManager();
                         holder.mRow.setVisibility(View.VISIBLE);
-                        if(holder.getAdapterPosition() < number -1) {
+                        if(holder.getAdapterPosition() < number -1 ) {
                             holder.itemView.setClickable(false);
                         }
+                        if(holder.mRow.getText().toString().equals("")) {
+                            while (number  < mStoryPart.size() ) {
 
-                        if(holder.getAdapterPosition() == 5) {
+                                holder.itemView.setClickable(true);
+                                holder.mRow.setVisibility(View.VISIBLE);
+                                number++;
+                            }
                             holder.itemView.setClickable(true);
+                            mFinalDialog = new FinalDialog();
+                            mFinalDialog.newInstance(mStoryPart.get(mStoryPart.size() - 1), mCompleteStory, score);
+
                         }
+                        if(holder.getAdapterPosition() == mStoryPart.size()-1) {
+                            mFinalDialog = new FinalDialog();
+                            mFinalDialog.newInstance(mStoryPart.get(mStoryPart.size() - 1), mCompleteStory, score);
+                            mFinalDialog.show(fragmentManager, SHOW);
+                        }
+
+
                     }
                 }
             } else {
@@ -332,6 +431,10 @@ public class StoryFragment extends Fragment {
             choices = MultiChoiceDialog.newInstance(choices1, choice2, choice3 ,correct, row);
         }
 
+        public void setFillInDialog(String correct, String row) {
+            mFillInDialog = FillInDialog.newInstance(correct, row);
+        }
+
         public void startStory(String question) {
 
             mRow.setText(question);
@@ -349,13 +452,13 @@ public class StoryFragment extends Fragment {
             FragmentManager fragmentManager = getFragmentManager();
             if(getAdapterPosition() < num) {
                 if(getAdapterPosition() == (mStoryLines.size() - 1)) {
-                    mFinalDialog = new FinalDialog();
-                    mFinalDialog.newInstance(mRow.getText().toString(), mCompleteStory, score);
+
                     mFinalDialog.show(fragmentManager, SHOW);
                 } else if (mType.equals("multi")) {
-                    choices.show(fragmentManager, SHOW);
-                } else  {
 
+                    choices.show(fragmentManager, SHOW);
+                } else if(mType.equals("fill")) {
+                    mFillInDialog.show(fragmentManager, SHOW);
                 }
             }
         }

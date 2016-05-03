@@ -13,6 +13,10 @@ public class CompleteStory implements Parcelable {
     private String mLine3;
     private String mLine4;
     private String mLine5;
+    private String mLine6;
+    private String mLine7;
+    private String mLine8;
+    private String mLine9;
     private String mFinalLine;
     private String mResponse;
     private String mComplete;
@@ -73,6 +77,38 @@ public class CompleteStory implements Parcelable {
         mLine5 = line5;
     }
 
+    public String getLine6() {
+        return mLine6;
+    }
+
+    public void setLine6(String line6) {
+        mLine6 = line6;
+    }
+
+    public String getLine7() {
+        return mLine7;
+    }
+
+    public void setLine7(String line7) {
+        mLine7 = line7;
+    }
+
+    public String getLine8() {
+        return mLine8;
+    }
+
+    public void setLine8(String line8) {
+        mLine8 = line8;
+    }
+
+    public String getLine9() {
+        return mLine9;
+    }
+
+    public void setLine9(String line9) {
+        mLine9 = line9;
+    }
+
     public String getFinalLine() {
         return mFinalLine;
     }
@@ -110,6 +146,10 @@ public class CompleteStory implements Parcelable {
         dest.writeString(mLine3);
         dest.writeString(mLine4);
         dest.writeString(mLine5);
+        dest.writeString(mLine6);
+        dest.writeString(mLine7);
+        dest.writeString(mLine8);
+        dest.writeString(mLine9);
         dest.writeString(mFinalLine);
         dest.writeString(mResponse);
         dest.writeString(mComplete);
@@ -122,6 +162,10 @@ public class CompleteStory implements Parcelable {
         mLine3 = in.readString();
         mLine4 = in.readString();
         mLine5 = in.readString();
+        mLine6 = in.readString();
+        mLine7 = in.readString();
+        mLine8 = in.readString();
+        mLine9 = in.readString();
         mFinalLine = in.readString();
         mResponse = in.readString();
         mComplete = in.readString();

@@ -15,10 +15,15 @@ import android.widget.TextView;
  */
 public class FillInDialog extends DialogFragment {
 
+    private static final String ANSWERED = "answered";
     EditText mAnswer;
     TextView mQuestionLabel;
     public static final String CORRECT = "correct";
     public static final String QUESTION = "question";
+    private int score;
+    StoryPoints mStoryPoints;
+    static int chances = 0;
+    static boolean notAnswered = true;
 
     public static FillInDialog newInstance(String correctAnswer, String question) {
         Bundle args = new Bundle();
@@ -43,20 +48,49 @@ public class FillInDialog extends DialogFragment {
 
         mQuestionLabel.setText(question);
 
+        mStoryPoints = StoryPoints.get(getContext());
+        score = mStoryPoints.getPoints();
+
         return new AlertDialog.Builder(getActivity()).setView(view).setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (correct.trim().toLowerCase().equals(mAnswer.getText().toString().trim().toString())) {
+                if (correct.trim().toLowerCase().equals(mAnswer.getText().toString().toLowerCase().trim().toString())) {
+
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("Correct").setPositiveButton("Ok", null);
                     builder.show();
+                    StoryFragment.get();
+                    updateScore();
+                    notAnswered = false;
+                    chances = 0;
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("Wrong, Try Again!").setPositiveButton("Ok", null);
                     builder.show();
+                    chances++;
                 }
             }
-        }).create();
+        }).setNegativeButton("Cancel", null).create();
+    }
+
+    public void updateScore() {
+
+        if(notAnswered) {
+            if (chances == 0) {
+                score += 2;
+                mStoryPoints.setPoints(score);
+            } else if (chances == 1) {
+                score += 1;
+                mStoryPoints.setPoints(score);
+            } else {
+
+            }
+        }
+
+    }
+
+    public static void setNotAnswered() {
+        notAnswered = true;
     }
 }

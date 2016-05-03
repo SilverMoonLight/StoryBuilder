@@ -58,6 +58,10 @@ public class CompleteStories {
         contentValues.put(StoryTable.Cols.LINE3, story.getLine3().toString());
         contentValues.put(StoryTable.Cols.LINE4, story.getLine4().toString());
         contentValues.put(StoryTable.Cols.LINE5, story.getLine5().toString());
+        contentValues.put(StoryTable.Cols.LINE6, story.getLine6().toString());
+        contentValues.put(StoryTable.Cols.LINE7, story.getLine7().toString());
+        contentValues.put(StoryTable.Cols.LINE8, story.getLine8().toString());
+        contentValues.put(StoryTable.Cols.LINE9, story.getLine9().toString());
         contentValues.put(StoryTable.Cols.FINAL_LINE, story.getFinalLine().toString());
         contentValues.put(StoryTable.Cols.COMPLETE, story.getComplete().toString());
         return contentValues;

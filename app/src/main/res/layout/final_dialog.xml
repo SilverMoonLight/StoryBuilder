@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Yes"
-        android:id="@+id/radioYes"
+        android:id="@+id/danny"
         android:layout_below="@+id/finalQuestionLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="91dp"/>
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="No"
         android:id="@+id/radioNo"
-        android:layout_below="@+id/radioYes"
+        android:layout_below="@+id/danny"
         android:layout_centerHorizontal="true"/>
     </RadioGroup>
 
